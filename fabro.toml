@@ -15,5 +15,8 @@ enabled = true
 draft = true
 # auto_merge = true
 
+[features]
+retros = true
+
 [sandbox.local]
 worktree_mode = "always"
