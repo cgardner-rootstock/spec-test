@@ -1,13 +1,24 @@
 digraph SubWorkflow {
-    graph [goal="Create a golang module (tempconv.go) that converts between Celsius, Fahrenheit, and Kelvin, with golang tests"]
+    graph [goal="Solve the problem provided by the user"]
     rankdir=LR
 
     start [shape=Mdiamond, label="Start"]
     exit  [shape=Msquare, label="Exit"]
 
-    plan   [label="Plan", prompt="Analyze the goal. List the functions needed, their signatures, and edge cases. Write the plan to plan.md."]
-    impl   [label="Implement & Test", shape=house, stack.child_workflow="implement-and-test.fabro", manager.max_cycles=50]
-    review [label="Review", prompt="Read every file the child workflow created. Run the tests yourself with 'go test -coverprofile=coverage.out ./...'. Verify the implementation matches plan.md and all tests pass. Write a short verdict to review.md."]
+    plan   [label="Plan", prompt="Analyze the goal. List the functions needed, their signatures, and edge cases. Ensure every conversion direction has equivalent edge-case coverage (freezing, boiling, absolute zero, body temperature, and the -40 intersection). Write the plan to plan.md."]
+    impl   [label="Implement & Test", shape=house, stack.child_workflow="workflows/implement-and-test.fabro", manager.max_cycles=50]
+    review [label="Review", prompt="Read every file the child workflow created. Read coverage.out and the test output from the validate stage. Verify 100% statement coverage, that the implementation matches plan.md, and that all tests passed. Only re-run tests if something looks wrong. Write a short verdict to review.md."]
 
-    start -> plan -> impl -> review -> exit
+    check_review [shape=diamond, label="Review OK?"]
+
+    goal [shape=hexagon, label="What is the goal?"]
+
+    start -> goal 
+
+    goal -> plan [freeform="true"]
+
+    plan -> impl -> review -> check_review
+
+    check_review -> exit [label="Yes", condition="outcome=success"]
+    check_review -> plan [label="No", max_visits=5]
 }

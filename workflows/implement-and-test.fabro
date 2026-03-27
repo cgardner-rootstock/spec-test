@@ -6,7 +6,7 @@ digraph ImplementAndTest {
     exit  [shape=Msquare, label="Exit"]
 
     implement [label="Implement", prompt="Read plan.md and implement every step. Write the code and tests to disk."]
-    validate  [label="Validate", shape=parallelogram, script="go test -coverprofile=coverage.out ./... 2>&1 || true"]
+    validate  [label="Validate", shape=parallelogram, script="go test -v -coverprofile=coverage.out ./... 2>&1; echo \"EXIT_CODE=$?\"; echo \"SUBTEST_COUNT=$(go test -v ./... 2>&1 | grep -c '=== RUN')\" || true"]
     gate      [shape=diamond, label="Tests passing?"]
 
     start -> implement -> validate -> gate
