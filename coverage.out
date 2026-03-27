@@ -1,0 +1,7 @@
+mode: set
+tempconv/tempconv.go:12.45,14.2 1 1
+tempconv/tempconv.go:17.41,19.2 1 1
+tempconv/tempconv.go:22.45,24.2 1 1
+tempconv/tempconv.go:27.44,29.2 1 1
+tempconv/tempconv.go:32.41,34.2 1 1
+tempconv/tempconv.go:37.44,39.2 1 1
