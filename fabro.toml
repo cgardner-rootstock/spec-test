@@ -12,7 +12,7 @@ root = "fabro/"
 # Auto-create pull requests on successful workflow runs.
 [pull_request]
 enabled = true
-draft = true
+draft = false
 # auto_merge = true
 
 [features]
